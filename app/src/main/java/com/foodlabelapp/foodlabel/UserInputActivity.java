@@ -1,19 +1,45 @@
 package com.foodlabelapp.foodlabel;
 
-import android.support.v7.app.ActionBarActivity;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
 public class UserInputActivity extends ActionBarActivity implements AdapterView.OnItemSelectedListener {
 
-//    static final android.R.attr R =
+    private static final String LOG_TAG = UserInputActivity.class.getSimpleName();
+
+    EditText nameField;
+    EditText ageField;
+    EditText heightField;
+    EditText weightField;
+    Spinner genderSpinner;
+    Spinner dailyActivitySpinner;
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Log.d(LOG_TAG, "Called onPause");
+        SharedPreferences prefs = getSharedPreferences(Constants.PREFS_NAME, 0);
+        SharedPreferences.Editor editor = prefs.edit();
+
+        Log.d(LOG_TAG, "nameField.getText().toString() = " + nameField.getText().toString());
+        Log.d(LOG_TAG, "ageField.getText().toString() = " + ageField.getText().toString()); 
+        editor.putString(Constants.PREFS_NAME_KEY, nameField.getText().toString());
+        editor.putString(Constants.PREFS_AGE_KEY, ageField.getText().toString());
+        editor.putString(Constants.PREFS_NAME_KEY, nameField.getText().toString());
+        editor.putString(Constants.PREFS_WEIGHT_KEY, weightField.getText().toString());
+        editor.putString(Constants.PREFS_HEIGHT_KEY, heightField.getText().toString());
+        editor.putInt(Constants.PREFS_GENDER_KEY, genderSpinner.getSelectedItemPosition());
+        editor.putInt(Constants.PREFS_ACTIVITY_KEY, dailyActivitySpinner.getSelectedItemPosition());
+        editor.commit();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,27 +47,28 @@ public class UserInputActivity extends ActionBarActivity implements AdapterView.
         setContentView(R.layout.activity_user_input);
 
         //Do handling here
-        final EditText nameField = (EditText)findViewById(R.id.EditTextName);
+        nameField = (EditText)findViewById(R.id.EditTextName);
+        ageField = (EditText)findViewById(R.id.EditTextAge);
+        heightField = (EditText)findViewById(R.id.EditTextHeight);
+        weightField = (EditText)findViewById(R.id.EditTextWeight);
+        genderSpinner = (Spinner)findViewById(R.id.SpinnerFeedbackType);
+        dailyActivitySpinner = (Spinner)findViewById(R.id.SpinnerActivityRange1);
+
+        updateViews();
+
+
+        String age = ageField.getText().toString();
         String name = nameField.getText().toString();
-
-        final EditText ageField = (EditText)findViewById(R.id.EditTextAge);
-        String age = nameField.getText().toString();
-
-        final EditText heightField = (EditText)findViewById(R.id.EditTextHeight);
-        String height = nameField.getText().toString();
-
-        final EditText weightField = (EditText)findViewById(R.id.EditTextWeight);
-        String weight = nameField.getText().toString();
+        String weight = weightField.getText().toString();
+        String height = heightField.getText().toString();
 
 //        String[] mArray;
 //        mArray = getResources().getStringArray(R.array.feedbacktypelist);
 
-        Spinner genderSpinner = (Spinner)findViewById(R.id.SpinnerFeedbackType);
-        genderSpinner.setOnItemSelectedListener(this);
+       // genderSpinner.setOnItemSelectedListener(this);
 
 
-        Spinner dailyActivitySpinner = (Spinner)findViewById(R.id.SpinnerActivityRange1);
-        dailyActivitySpinner.setOnItemSelectedListener(this);
+        //dailyActivitySpinner.setOnItemSelectedListener(this);
 
 //        Spinner weeklyActivitySpinner = (Spinner)findViewById(R.id.SpinnerActivityRange2);
 //        weeklyActivitySpinner.setOnItemSelectedListener(this);
@@ -69,6 +96,24 @@ public class UserInputActivity extends ActionBarActivity implements AdapterView.
         double totalFat = (EER * .35) /9;
 //        Utilities.calculateBMR(genderPos, Integer.parseInt(age), weeklyActPos, Integer.parseInt(weight), Integer.parseInt(height));
 
+    }
+
+    private void updateViews() {
+        Log.d(LOG_TAG, "Called updateViews");
+        SharedPreferences prefs = getSharedPreferences(Constants.PREFS_NAME, 0);
+        String name = prefs.getString(Constants.PREFS_NAME_KEY, "");
+        String age = prefs.getString(Constants.PREFS_AGE_KEY, "");
+        String weight = prefs.getString(Constants.PREFS_WEIGHT_KEY, "");
+        String height = prefs.getString(Constants.PREFS_HEIGHT_KEY, "");
+        int gender = prefs.getInt(Constants.PREFS_GENDER_KEY, 0);
+        int activity = prefs.getInt(Constants.PREFS_ACTIVITY_KEY, 0);
+
+        nameField.setText(name);
+        ageField.setText(age);
+        weightField.setText(weight);
+        heightField.setText(height);
+        genderSpinner.setSelection(gender);
+        dailyActivitySpinner.setSelection(activity);
     }
 
     @Override
