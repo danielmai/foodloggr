@@ -10,14 +10,59 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
-import android.app.ListActivity;
 
 public class UserInputActivity extends ActionBarActivity implements AdapterView.OnItemSelectedListener {
+
+//    static final android.R.attr R =
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_input);
+
+        //Do handling here
+        final EditText nameField = (EditText)findViewById(R.id.EditTextName);
+        String name = nameField.getText().toString();
+
+        final EditText ageField = (EditText)findViewById(R.id.EditTextAge);
+        String age = nameField.getText().toString();
+
+        final EditText heightField = (EditText)findViewById(R.id.EditTextHeight);
+        String height = nameField.getText().toString();
+
+        final EditText weightField = (EditText)findViewById(R.id.EditTextWeight);
+        String weight = nameField.getText().toString();
+
+//        String[] mArray;
+//        mArray = getResources().getStringArray(R.array.feedbacktypelist);
+
+        Spinner genderSpinner = (Spinner)findViewById(R.id.SpinnerFeedbackType);
+        genderSpinner.setOnItemSelectedListener(this);
+
+
+        Spinner dailyActivitySpinner = (Spinner)findViewById(R.id.SpinnerActivityRange1);
+        dailyActivitySpinner.setOnItemSelectedListener(this);
+
+        Spinner weeklyActivitySpinner = (Spinner)findViewById(R.id.SpinnerActivityRange2);
+        weeklyActivitySpinner.setOnItemSelectedListener(this);
+
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item);
+//        String[] mArray2;
+//        mArray2 = getResources().getStringArray(R.array.actvitylist1);
+//        String[] mArray3;
+//        mArray3 = getResources().getStringArray(R.array.actvitylist2);
+
+
+
+        dailyActivitySpinner.setAdapter(dataAdapter);
+
+        Integer genderPos = genderSpinner.getSelectedItemPosition();
+        Integer dailyActPos = dailyActivitySpinner.getSelectedItemPosition();
+        Integer weeklyActPos = weeklyActivitySpinner.getSelectedItemPosition();
+
+        Utilities.calculateEER(genderPos, Integer.parseInt(age), dailyActPos, Integer.parseInt(weight), Integer.parseInt(height));
+        Utilities.calculateBMR(genderPos, Integer.parseInt(age), weeklyActPos, Integer.parseInt(weight), Integer.parseInt(height));
+
     }
 
     @Override
@@ -41,33 +86,6 @@ public class UserInputActivity extends ActionBarActivity implements AdapterView.
 
         return super.onOptionsItemSelected(item);
     }
-    public void sendUserInfo(View button){
-        //Do handling here
-        final EditText nameField = (EditText)findViewById(R.id.EditTextName);
-        String name = nameField.getText().toString();
-
-        final EditText ageField = (EditText)findViewById(R.id.EditTextAge);
-        String age = nameField.getText().toString();
-
-        final EditText heightField = (EditText)findViewById(R.id.EditTextHeight);
-        String height = nameField.getText().toString();
-
-        final EditText weightField = (EditText)findViewById(R.id.EditTextWeight);
-        String weight = nameField.getText().toString();
-
-        Spinner genderSpinner = (Spinner)findViewById(R.id.SpinnerFeedbackType);
-        genderSpinner.setOnItemClickListener((AdapterView.OnItemClickListener) this);
-
-        String[] mArray;
-        mArray = getResources().getStringArray(R.array.feedbacktypelist);
-
-        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item);
-
-        genderSpinner.setAdapter(dataAdapter);
-
-    }
-
-
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {

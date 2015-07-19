@@ -3,7 +3,22 @@
     <string-array name="feedbacktypelist">
         <item>@string/feedbacktype1</item>
         <item>@string/feedbacktype2</item>
-        <!--<item>@string/feedbacktype3</item>-->
-        <!--<item>@string/feedbacktype4</item>-->
     </string-array>
+
+
+    <string-array name="actvitylist1">
+        <item>@string/sedentary</item>
+        <item>@string/lowactive</item>
+        <item>@string/active</item>
+        <item>@string/veryactive</item>
+    </string-array>
+
+    <string-array name="actvitylist2">
+        <item>@string/none</item>
+        <item>@string/light</item>
+        <item>@string/moderate</item>
+        <item>@string/heavy</item>
+        <item>@string/veryheavy</item>
+    </string-array>
+
 </resources>

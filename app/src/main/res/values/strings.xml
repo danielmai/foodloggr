@@ -8,15 +8,35 @@
     <string name="title_activity_user_input">UserInputActivity</string>
     <string name="feedbacktype1">F</string>
     <string name="feedbacktype2">M</string>
-    <!--<string name="feedbacktype3">Suggestion</string>-->
-    <!--<string name="feedbacktype4">Bug</string>-->
+>
 
     <string name="feedbacktitle">User Profile</string>
     <string name="feedbackname">Name</string>
     <string name="feedbacktype">Gender</string>
-    <string name="feedbackage">Age Range</string>
+    <string name="feedbackage">Age</string>
+    <string name="feedbackactivity1">Daily Activity Level</string>
+    <string name="feedbackactivity2">Weekly Activity Level</string>
     <string name="feedbackweight">Weight</string>
     <string name="feedbackheight">Height</string>
+    <string name="feedbackheightfeet">Feet</string>
+    <string name="feedbackheightinches">Inch</string>
+
+    <string name="imperial">Imperial</string>
+    <string name="metric">Metric</string>
+
+
+    <string name="sedentary">Daily Activities (Sedentary)</string>
+    <string name="lowactive">30-60 min Additional (Low Active)</string>
+    <string name="active">60+ min of Moderate Actvity (Active)</string>
+    <string name="veryactive">60 min of Moderate + 60 Vigorous or 120 Moderate (Very Active)</string>
+
+
+    <string name="none">Light to None</string>
+    <string name="light">Light (1-3 times per week)</string>
+    <string name="moderate">Moderate (3-5 times per week)</string>
+    <string name="heavy">Heavy (6-7 times per week)</string>
+    <string name="veryheavy">Very Heavy (2 times per Day)</string>
+
 
     <string name="feedbackbutton">Graph!</string>
     <string name="title_activity_detail">DetailActivity</string>

@@ -23,24 +23,89 @@
         android:inputType="textPersonName"
         android:layout_width="fill_parent">
     </EditText>
+
     <EditText
         android:id="@+id/EditTextAge"
         android:layout_height="wrap_content"
         android:hint="@string/feedbackage"
-        android:inputType="number"
+        android:inputType="textPersonName"
+        android:layout_width="fill_parent">
+    </EditText>
+
+
+
+    <Spinner
+        android:id="@+id/SpinnerActivityRange1"
+        android:layout_height="wrap_content"
+        android:prompt="@string/feedbackactivity1"
+        android:layout_width="fill_parent"
+        android:entries="@array/actvitylist1">
+    </Spinner>
+
+    <Spinner
+        android:id="@+id/SpinnerActivityRange2"
+        android:layout_height="wrap_content"
+        android:prompt="@string/feedbackactivity2"
+        android:layout_width="fill_parent"
+        android:entries="@array/actvitylist2">
+    </Spinner>
+    <!--<RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"-->
+        <!--android:layout_width="fill_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:orientation="vertical">-->
+        <!--<LinearLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:orientation="horizontal"-->
+            <!--android:id="@+id/UnitLayout">-->
+            <!--<RadioButton android:id="@+id/radio_imperial"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="@string/imperial"-->
+                <!--android:onClick="onRadioButtonClicked"/>-->
+            <!--<RadioButton android:id="@+id/radio_metric"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="@string/metric"-->
+                <!--android:onClick="onRadioButtonClicked"/>-->
+        <!--</LinearLayout>-->
+
+    <!--</RadioGroup>-->
+<!--change layout on metric -->
+    <!--<LinearLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:orientation="horizontal"-->
+        <!--android:id="@+id/HeightLayout">-->
+        <!--<EditText-->
+            <!--android:id="@+id/EditTextHeightFeet"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:hint="@string/feedbackheightfeet"-->
+            <!--android:inputType="numberDecimal"-->
+            <!--android:layout_width="fill_parent">-->
+        <!--</EditText>-->
+
+        <!--<EditText-->
+            <!--android:id="@+id/EditTextHeightInches"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:hint="@string/feedbackheightinches"-->
+            <!--android:inputType="numberDecimal"-->
+            <!--android:layout_width="fill_parent">-->
+        <!--</EditText>-->
+
+    <!--</LinearLayout>-->
+
+    <EditText
+        android:id="@+id/EditTextWeight"
+        android:layout_height="wrap_content"
+        android:hint="@string/feedbackweight"
+        android:inputType="numberDecimal"
         android:layout_width="fill_parent">
     </EditText>
     <EditText
         android:id="@+id/EditTextHeight"
         android:layout_height="wrap_content"
         android:hint="@string/feedbackheight"
-        android:inputType="numberDecimal"
-        android:layout_width="fill_parent">
-    </EditText>
-    <EditText
-        android:id="@+id/EditTextWeight"
-        android:layout_height="wrap_content"
-        android:hint="@string/feedbackweight"
         android:inputType="numberDecimal"
         android:layout_width="fill_parent">
     </EditText>
