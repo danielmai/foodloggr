@@ -1,3 +1,5 @@
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 /**
  * Class that holds nutritional facts about an item
  */
@@ -21,24 +23,30 @@ public class NutriFact {
     System.out.printf("Size of facts is: %d\n", facts.length);
     for (int i = 0; i < facts.length; i++) {
       String line = facts[i];
+      Matcher matcher = Pattern.compile("\\d+").matcher(line);
+      matcher.find();
       System.out.printf("Line is %s\n", line);
-      String[] tokens = line.split(" ");
+      //String[] tokens = line.split("[^0-9]+");
       if (calories == 0 && i == 7) {
         line = line.replaceAll("\\D+","");
         if (line.length() > 0)
           calories = Integer.parseInt(line);
       }
       else if (line.contains(caloriesStr)) {
-        calories = Integer.parseInt(tokens[1]);
+        //calories = Integer.parseInt(tokens[0]);
+        calories = Integer.parseInt(matcher.group());
       }
       else if (line.contains(totalFatStr)) {
-        totalFat = Integer.parseInt(tokens[2].substring(0, tokens[2].length()-1));
+        //totalFat = Integer.parseInt(tokens[0]);
+        totalFat = Integer.parseInt(matcher.group());
       }
       else if (line.contains(sodiumStr)) {
-        sodium = Integer.parseInt(tokens[1].substring(0,tokens[1].length()-2));
+        //sodium = Integer.parseInt(tokens[0]);
+        sodium = Integer.parseInt(matcher.group());
       }
       else if (line.contains(carbStr) || line.contains(carbStr2)) {
-        carbohydrates = Integer.parseInt(tokens[2].substring(0,tokens[2].length()-1));
+        //carbohydrates = Integer.parseInt(tokens[0]);
+        carbohydrates = Integer.parseInt(matcher.group());
       }
     }
   }
