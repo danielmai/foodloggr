@@ -21,11 +21,13 @@ import com.foodlabelapp.foodlabel.picasso.GrayscaleTransformation;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -70,9 +72,44 @@ public class MainActivity extends ActionBarActivity {
             }
         });
 
-        WebView webView = (WebView) findViewById(R.id.chart_webview);
-        InputStream inputStream = getResources().openRawResource(R.raw.chart);
-        
+        WebView calorieWebView = (WebView) findViewById(R.id.chart_carolies_webview);
+        WebView fatWebView = (WebView) findViewById(R.id.chart_fat_webview);
+        WebView sodiumWebView = (WebView) findViewById(R.id.chart_sodium_webview);
+        WebView carbsWebView = (WebView) findViewById(R.id.chart_carbs_webview);
+        InputStream is = getResources().openRawResource(R.raw.chart);
+        BufferedReader br = new BufferedReader(new InputStreamReader(is));
+        StringBuffer buffer = new StringBuffer();
+
+        try {
+            String readLine = null;
+            // While the BufferedReader readLine is not null
+            while ((readLine = br.readLine()) != null) {
+                buffer.append(readLine);
+            }
+
+            // Close the InputStream and BufferedReader
+            is.close();
+            br.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+        // Loading all the webviews for Batman
+        /*String chartHtml = buffer.toString();
+        webView.loadData(chartHtml, "text/html", null);*/
+        String formatCaloriesUrl = "http://chart.apis.google.com/chart?cht=bhg&chs=200x125&chd=t:%d|%d&chco=4d89f9,c6d9fd&chl=Caloric Intake&chds=0,%d";
+        String formatFatUrl = "http://chart.apis.google.com/chart?cht=bhg&chs=200x125&chd=t:%d|%d&chco=4d89f9,c6d9fd&chl=Total Fat&chds=0,%d";
+        String formatSodiumUrl = "http://chart.apis.google.com/chart?cht=bhg&chs=200x125&chd=t:%d|%d&chco=4d89f9,c6d9fd&chl=Sodium Intake&chds=0,%d";
+        String formatCarbsUrl = "http://chart.apis.google.com/chart?cht=bhg&chs=200x125&chd=t:%d|%d&chco=4d89f9,c6d9fd&chl=Carbohydrates Intake&chds=0,%d";
+        String urlCalories = String.format(formatCaloriesUrl, 10, 2000, 2000);
+        String urlFat = String.format(formatFatUrl, 20, 2000, 2000);
+        String urlSodium = String.format(formatSodiumUrl, 30, 2000, 2000);
+        String urlCarbs = String.format(formatCarbsUrl, 40, 2000, 2000);
+        calorieWebView.loadUrl(urlCalories);
+        fatWebView.loadUrl(urlFat);
+        sodiumWebView.loadUrl(urlSodium);
+        carbsWebView.loadUrl(urlCarbs);
     }
 
     @Override
@@ -181,7 +218,9 @@ public class MainActivity extends ActionBarActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_profile) {
+            Intent i = new Intent(this, UserInputActivity.class);
+            startActivity(i);
             return true;
         }
 
