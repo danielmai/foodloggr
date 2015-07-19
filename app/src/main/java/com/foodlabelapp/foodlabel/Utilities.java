@@ -93,15 +93,20 @@ public class Utilities {
         }
 
 //        height = heightConverter(height, foot, inch, isImperial);
+        height /= 100;
         double menEER = 662 - (9.53 * age) + PA * ((weight * 15.91) + (539.6 * height));
         double womenEER = 354 - (6.91 * age) + PA * ((weight * 9.36) + (726 * height));
 
+        double EER = 0;
         if(gender == 0){
-            return menEER;
+             EER = menEER;
         }
         else{
-            return womenEER;
+            EER = womenEER;
         }
+
+
+        return EER;
 
     }
 

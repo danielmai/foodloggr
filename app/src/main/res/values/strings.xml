@@ -6,8 +6,8 @@
     <string name="take_picture">Snap Nutrition Facts</string>
 
     <string name="title_activity_user_input">UserInputActivity</string>
-    <string name="feedbacktype1">F</string>
-    <string name="feedbacktype2">M</string>
+    <string name="feedbacktype1">M</string>
+    <string name="feedbacktype2">F</string>
 >
 
     <string name="feedbacktitle">User Profile</string>
@@ -16,10 +16,10 @@
     <string name="feedbackage">Age</string>
     <string name="feedbackactivity1">Daily Activity Level</string>
     <string name="feedbackactivity2">Weekly Activity Level</string>
-    <string name="feedbackweight">Weight</string>
-    <string name="feedbackheight">Height</string>
-    <string name="feedbackheightfeet">Feet</string>
-    <string name="feedbackheightinches">Inch</string>
+    <string name="feedbackweight">Weight (kg)</string>
+    <string name="feedbackheight">Height (cm)</string>
+    <!--<string name="feedbackheightfeet">Feet</string>-->
+    <!--<string name="feedbackheightinches">Inch</string>-->
 
     <string name="imperial">Imperial</string>
     <string name="metric">Metric</string>

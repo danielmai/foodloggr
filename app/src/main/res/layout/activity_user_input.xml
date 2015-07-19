@@ -42,13 +42,13 @@
         android:entries="@array/actvitylist1">
     </Spinner>
 
-    <Spinner
-        android:id="@+id/SpinnerActivityRange2"
-        android:layout_height="wrap_content"
-        android:prompt="@string/feedbackactivity2"
-        android:layout_width="fill_parent"
-        android:entries="@array/actvitylist2">
-    </Spinner>
+    <!--<Spinner-->
+        <!--android:id="@+id/SpinnerActivityRange2"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:prompt="@string/feedbackactivity2"-->
+        <!--android:layout_width="fill_parent"-->
+        <!--android:entries="@array/actvitylist2">-->
+    <!--</Spinner>-->
     <!--<RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"-->
         <!--android:layout_width="fill_parent"-->
         <!--android:layout_height="wrap_content"-->

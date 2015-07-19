@@ -43,10 +43,10 @@ public class UserInputActivity extends ActionBarActivity implements AdapterView.
         Spinner dailyActivitySpinner = (Spinner)findViewById(R.id.SpinnerActivityRange1);
         dailyActivitySpinner.setOnItemSelectedListener(this);
 
-        Spinner weeklyActivitySpinner = (Spinner)findViewById(R.id.SpinnerActivityRange2);
-        weeklyActivitySpinner.setOnItemSelectedListener(this);
+//        Spinner weeklyActivitySpinner = (Spinner)findViewById(R.id.SpinnerActivityRange2);
+//        weeklyActivitySpinner.setOnItemSelectedListener(this);
 
-        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item);
+//        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, );
 //        String[] mArray2;
 //        mArray2 = getResources().getStringArray(R.array.actvitylist1);
 //        String[] mArray3;
@@ -54,14 +54,20 @@ public class UserInputActivity extends ActionBarActivity implements AdapterView.
 
 
 
-        dailyActivitySpinner.setAdapter(dataAdapter);
+//        dailyActivitySpinner.setAdapter(dataAdapter);
 
         Integer genderPos = genderSpinner.getSelectedItemPosition();
         Integer dailyActPos = dailyActivitySpinner.getSelectedItemPosition();
-        Integer weeklyActPos = weeklyActivitySpinner.getSelectedItemPosition();
+//        Integer weeklyActPos = weeklyActivitySpinner.getSelectedItemPosition();
 
-        Utilities.calculateEER(genderPos, Integer.parseInt(age), dailyActPos, Integer.parseInt(weight), Integer.parseInt(height));
-        Utilities.calculateBMR(genderPos, Integer.parseInt(age), weeklyActPos, Integer.parseInt(weight), Integer.parseInt(height));
+        double EER = 0;
+        if(!age.equals("") && !weight.equals("") && !height.equals("")){
+            EER = Utilities.calculateEER(genderPos, Integer.parseInt(age), dailyActPos, Integer.parseInt(weight), Integer.parseInt(height));
+        }
+        double carbohydrates = (EER * .65)/4;
+        double sodium = 2300;
+        double totalFat = (EER * .35) /9;
+//        Utilities.calculateBMR(genderPos, Integer.parseInt(age), weeklyActPos, Integer.parseInt(weight), Integer.parseInt(height));
 
     }
 
