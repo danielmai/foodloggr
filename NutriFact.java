@@ -74,12 +74,12 @@ public class NutriFact {
   }
 
   // Return number of carbohydrates
-  public int getCarbohydrates () {
+  public int getCarbs () {
     return carbohydrates;
   }
 
   // Set number of carbohydrates
-  public void setCarbohydrates (int carbohydrates) {
+  public void setCarbs (int carbohydrates) {
     this.carbohydrates = carbohydrates;
   }
 }
