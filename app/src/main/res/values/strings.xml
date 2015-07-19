@@ -4,4 +4,19 @@
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="take_picture">Snap Nutrition Facts</string>
+
+    <string name="title_activity_user_input">UserInputActivity</string>
+    <string name="feedbacktype1">F</string>
+    <string name="feedbacktype2">M</string>
+    <!--<string name="feedbacktype3">Suggestion</string>-->
+    <!--<string name="feedbacktype4">Bug</string>-->
+
+    <string name="feedbacktitle">User Profile</string>
+    <string name="feedbackname">Name</string>
+    <string name="feedbacktype">Gender</string>
+    <string name="feedbackage">Age Range</string>
+    <string name="feedbackweight">Weight</string>
+    <string name="feedbackheight">Height</string>
+
+    <string name="feedbackbutton">Graph!</string>
 </resources>
