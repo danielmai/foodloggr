@@ -1,6 +1,7 @@
 package com.foodlabelapp.foodlabel;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
@@ -98,14 +99,31 @@ public class MainActivity extends ActionBarActivity {
         // Loading all the webviews for Batman
         /*String chartHtml = buffer.toString();
         webView.loadData(chartHtml, "text/html", null);*/
-        String formatCaloriesUrl = "http://chart.apis.google.com/chart?cht=bhg&chs=200x125&chd=t:%d|%d&chco=4d89f9,c6d9fd&chl=Caloric Intake&chds=0,%d";
-        String formatFatUrl = "http://chart.apis.google.com/chart?cht=bhg&chs=200x125&chd=t:%d|%d&chco=4d89f9,c6d9fd&chl=Total Fat&chds=0,%d";
-        String formatSodiumUrl = "http://chart.apis.google.com/chart?cht=bhg&chs=200x125&chd=t:%d|%d&chco=4d89f9,c6d9fd&chl=Sodium Intake&chds=0,%d";
-        String formatCarbsUrl = "http://chart.apis.google.com/chart?cht=bhg&chs=200x125&chd=t:%d|%d&chco=4d89f9,c6d9fd&chl=Carbohydrates Intake&chds=0,%d";
-        String urlCalories = String.format(formatCaloriesUrl, 10, 2000, 2000);
-        String urlFat = String.format(formatFatUrl, 20, 2000, 2000);
-        String urlSodium = String.format(formatSodiumUrl, 30, 2000, 2000);
-        String urlCarbs = String.format(formatCarbsUrl, 40, 2000, 2000);
+        String formatCaloriesUrl = "http://chart.apis.google.com/chart?cht=bhg&chs=200x125&chd=t:%f|%f&chco=4d89f9,c6d9fd&chl=Caloric Intake&chds=0,%f";
+        String formatFatUrl = "http://chart.apis.google.com/chart?cht=bhg&chs=200x125&chd=t:%f|%f&chco=4d89f9,c6d9fd&chl=Total Fat&chds=0,%f";
+        String formatSodiumUrl = "http://chart.apis.google.com/chart?cht=bhg&chs=200x125&chd=t:%f|%f&chco=4d89f9,c6d9fd&chl=Sodium Intake&chds=0,%f";
+        String formatCarbsUrl = "http://chart.apis.google.com/chart?cht=bhg&chs=200x125&chd=t:%f|%f&chco=4d89f9,c6d9fd&chl=Carbohydrates Intake&chds=0,%f";
+
+        SharedPreferences prefs = getSharedPreferences(Constants.PREFS_NAME, 0);
+        String age = prefs.getString(Constants.PREFS_AGE_KEY, "");
+        String weight = prefs.getString(Constants.PREFS_WEIGHT_KEY, "");
+        String height = prefs.getString(Constants.PREFS_HEIGHT_KEY, "");
+        int genderPos = prefs.getInt(Constants.PREFS_GENDER_KEY, 0);
+        int dailyActPos = prefs.getInt(Constants.PREFS_ACTIVITY_KEY, 0);
+
+
+
+        double EER = 0;
+        if(!age.equals("") && !weight.equals("") && !height.equals("")){
+            EER = Utilities.calculateEER(genderPos, Integer.parseInt(age), dailyActPos, Integer.parseInt(weight), Integer.parseInt(height));
+        }
+        double carbohydrates = (EER * .65)/4;
+        double sodium = 2300;
+        double totalFat = (EER * .35) /9;
+        String urlCalories = String.format(formatCaloriesUrl, 10.0, EER,EER);
+        String urlFat = String.format(formatFatUrl, 20.0, totalFat, totalFat);
+        String urlSodium = String.format(formatSodiumUrl, 30.0, sodium, sodium);
+        String urlCarbs = String.format(formatCarbsUrl, 40.0, carbohydrates, carbohydrates);
         calorieWebView.loadUrl(urlCalories);
         fatWebView.loadUrl(urlFat);
         sodiumWebView.loadUrl(urlSodium);

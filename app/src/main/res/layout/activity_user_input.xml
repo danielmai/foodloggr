@@ -134,11 +134,11 @@
         <!--android:text="@string/feedbackresponse"-->
         <!--android:layout_width="fill_parent">-->
     <!--</CheckBox>-->
-    <Button
+ <!--   <Button
         android:id="@+id/ButtonSendFeedback"
         android:layout_height="wrap_content"
         android:text="@string/feedbackbutton"
         android:onClick="sendFeedback"
         android:layout_width="fill_parent">
-    </Button>
+    </Button>-->
 </LinearLayout>

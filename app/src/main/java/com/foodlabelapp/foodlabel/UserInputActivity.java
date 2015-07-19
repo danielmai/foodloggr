@@ -86,14 +86,6 @@ public class UserInputActivity extends ActionBarActivity implements AdapterView.
         Integer genderPos = genderSpinner.getSelectedItemPosition();
         Integer dailyActPos = dailyActivitySpinner.getSelectedItemPosition();
 //        Integer weeklyActPos = weeklyActivitySpinner.getSelectedItemPosition();
-
-        double EER = 0;
-        if(!age.equals("") && !weight.equals("") && !height.equals("")){
-            EER = Utilities.calculateEER(genderPos, Integer.parseInt(age), dailyActPos, Integer.parseInt(weight), Integer.parseInt(height));
-        }
-        double carbohydrates = (EER * .65)/4;
-        double sodium = 2300;
-        double totalFat = (EER * .35) /9;
 //        Utilities.calculateBMR(genderPos, Integer.parseInt(age), weeklyActPos, Integer.parseInt(weight), Integer.parseInt(height));
 
     }
