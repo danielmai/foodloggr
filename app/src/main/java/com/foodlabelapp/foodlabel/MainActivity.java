@@ -15,11 +15,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
+import com.foodlabelapp.foodlabel.picasso.GrayscaleTransformation;
+import com.squareup.picasso.Picasso;
+
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
 
 public class MainActivity extends ActionBarActivity {
 
@@ -44,6 +46,7 @@ public class MainActivity extends ActionBarActivity {
         Button button = (Button) findViewById(R.id.take_picture_button);
         mImageView = (ImageView) findViewById(R.id.snapshot_image_view);
         if (savedInstanceState != null) {
+            mCurrentPhotoPath = savedInstanceState.getString(PHOTO_KEY);
             displayGrayscaleImage();
         }
         button.setOnClickListener(new View.OnClickListener() {
@@ -97,11 +100,10 @@ public class MainActivity extends ActionBarActivity {
     }
 
     private void displayGrayscaleImage() {
-        File imageFile = new File(mCurrentPhotoPath);
-        BitmapFactory.Options bmOptions = new BitmapFactory.Options();
-        Bitmap imageBitmap = BitmapFactory.decodeFile(imageFile.getAbsolutePath(),bmOptions);
-        imageBitmap = Utilities.toGrayscale(imageBitmap);
-        mImageView.setImageBitmap(imageBitmap);
+        Picasso picasso = Picasso.with(this);
+        picasso.load(new File(mCurrentPhotoPath))
+                .transform(new GrayscaleTransformation(picasso))
+                .into(mImageView);
     }
 
     @Override
