@@ -11,7 +11,7 @@ import retrofit.RestAdapter;
  */
 public class IdolOnDemandApi {
 
-    public static final String IDOL_ON_DEMAND_WEB_API_ENDPOINT = "https://api.idolondemand.com/1/api/sync/ocrdocument/v1";
+    public static final String IDOL_ON_DEMAND_WEB_API_ENDPOINT = "https://api.idolondemand.com";
 
     private String mApiKey;
 
@@ -36,7 +36,7 @@ public class IdolOnDemandApi {
                 .setLogLevel(RestAdapter.LogLevel.BASIC)
                 .setExecutors(httpExecutor, callbackExecutor)
                 .setEndpoint(IDOL_ON_DEMAND_WEB_API_ENDPOINT)
-                .setRequestInterceptor(new WebApiAuthenticator())
+                //.setRequestInterceptor(new WebApiAuthenticator())
                 .build();
 
         return restAdapter.create(IdolOnDemandService.class);

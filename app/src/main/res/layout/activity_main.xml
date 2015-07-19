@@ -21,7 +21,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         style="?android:buttonStyle"
-        android:visibility="invisible"/>
+        android:visibility="invisible"
+        android:text="@string/show_details_button"/>
+
+    <WebView
+        android:id="@+id/chart_webview"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"></WebView>
 
     <ImageView
         android:id="@+id/snapshot_image_view"

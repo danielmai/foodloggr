@@ -1,5 +1,7 @@
 package com.foodlabelapp.foodlabel.api.models;
 
+import java.util.List;
+
 public class OCRImage {
-    TextBlock textblock;
+    public List<TextBlock> text_block;
 }

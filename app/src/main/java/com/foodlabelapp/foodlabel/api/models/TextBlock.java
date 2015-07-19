@@ -8,11 +8,11 @@ import java.util.List;
  * Created by Daniel on 7/18/15.
  */
 public class TextBlock {
-    String text;
-    int left;
-    int right;
-    int width;
-    int height;
+    public String text;
+    public int left;
+    public int right;
+    public int width;
+    public int height;
 
     public TextBlock(String text) {
         this.text = text;

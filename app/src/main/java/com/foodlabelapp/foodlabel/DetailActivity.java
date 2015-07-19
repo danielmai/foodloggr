@@ -12,13 +12,19 @@ import java.io.File;
 
 public class DetailActivity extends ActionBarActivity {
 
+    private static final String LOG_TAG = DetailActivity.class.getSimpleName();
+
+    private ArrayAdapter<String> adapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
         File image = new File(getIntent().getStringExtra(MainActivity.PHOTO_KEY));
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.activity_list_item, android.R.id.text1);
+        adapter = new ArrayAdapter<String>(getApplicationContext(), R.layout.list_item_nutrition, R.id.nutrition_text_view);
         ListView list = (ListView) findViewById(R.id.detail_list_view);
+        list.setAdapter(adapter);
+
         FetchOCRImageResponseTask task = new FetchOCRImageResponseTask(getApplicationContext(), adapter);
         task.execute(image);
     }

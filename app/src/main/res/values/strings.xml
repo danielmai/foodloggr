@@ -20,4 +20,5 @@
 
     <string name="feedbackbutton">Graph!</string>
     <string name="title_activity_detail">DetailActivity</string>
+    <string name="show_details_button">Nutrition detalis</string>
 </resources>

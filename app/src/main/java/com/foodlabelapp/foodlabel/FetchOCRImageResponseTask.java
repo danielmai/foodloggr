@@ -2,23 +2,24 @@ package com.foodlabelapp.foodlabel;
 
 import android.content.Context;
 import android.os.AsyncTask;
+import android.util.Log;
 import android.widget.ArrayAdapter;
 
+import com.foodlabelapp.foodlabel.api.models.OCRImage;
 import com.foodlabelapp.foodlabel.api.models.TextBlock;
-import com.mashape.unirest.http.HttpResponse;
-import com.mashape.unirest.http.JsonNode;
-import com.mashape.unirest.http.Unirest;
-import com.mashape.unirest.http.exceptions.UnirestException;
-
-import org.json.JSONException;
-import org.json.JSONObject;
+import com.foodlabelapp.foodlabel.api.service.IdolOnDemandApi;
+import com.foodlabelapp.foodlabel.api.service.IdolOnDemandService;
 
 import java.io.File;
+
+import retrofit.mime.TypedFile;
 
 /**
  * Created by Daniel on 7/18/15.
  */
-public class FetchOCRImageResponseTask extends AsyncTask<File, Void, String> {
+public class FetchOCRImageResponseTask extends AsyncTask<File, Void, TextBlock> {
+
+    private static final String LOG_TAG = FetchOCRImageResponseTask.class.getSimpleName();
 
     Context mContext;
     ArrayAdapter mArrayAdapter;
@@ -29,37 +30,27 @@ public class FetchOCRImageResponseTask extends AsyncTask<File, Void, String> {
     }
 
     @Override
-    protected String doInBackground(File... files) {
+    protected TextBlock doInBackground(File... files) {
+        Log.d(LOG_TAG, "We're in do in background!");
         File file = files[0];
+        TypedFile imageFile = new TypedFile("multipart/form-data", file);
 
-        String endpoint = "https://api.idolondemand.com/1/api/sync/ocrdocument/v1";
-        String apiKey = "7364a7dc-b711-4543-8186-882b5fd07faa";
-        String result = null;
-        try {
-            HttpResponse<JsonNode> response = Unirest
-                    .post(endpoint)
-                    .field("file", file)
-                    .field("mode", "scene_photo")
-                    .field("apikey", apiKey)
-                    .asJson();
-
-            JSONObject textblock =(JSONObject) response.getBody().getObject().getJSONArray("text_block").get(0);
-            result= textblock.getString("text");
-        } catch (UnirestException | JSONException e) {
-            e.printStackTrace();
-        }
-        return result;
+        IdolOnDemandApi api = new IdolOnDemandApi("7364a7dc-b711-4543-8186-882b5fd07faa");
+        String apikey = "7364a7dc-b711-4543-8186-882b5fd07faa";
+        IdolOnDemandService service = api.getService();
+        OCRImage ocrImage = service.ocrDocument(apikey, imageFile);
+        return ocrImage.text_block.get(0);
     }
 
     @Override
-    protected void onPostExecute(String s) {
+    protected void onPostExecute(TextBlock tb) {
+        Log.d(LOG_TAG, "Hiii");
         mArrayAdapter.clear();
-        TextBlock textBlock = new TextBlock(s);
-        if (s != null) {
-            for (String data : textBlock.getTextList()) {
+        Log.d(LOG_TAG, "tb == null = " + (tb == null));
+        if (tb != null) {
+            for (String data : tb.getTextList()) {
                 mArrayAdapter.add(data);
             }
         }
-
     }
 }

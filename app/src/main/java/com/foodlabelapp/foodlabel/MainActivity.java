@@ -1,6 +1,9 @@
 package com.foodlabelapp.foodlabel;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -10,14 +13,19 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.ImageView;
 
 import com.foodlabelapp.foodlabel.picasso.GrayscaleTransformation;
 import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -45,7 +53,9 @@ public class MainActivity extends ActionBarActivity {
         mImageView = (ImageView) findViewById(R.id.snapshot_image_view);
         if (savedInstanceState != null) {
             mCurrentPhotoPath = savedInstanceState.getString(PHOTO_KEY);
-            displayGrayscaleImage();
+            if (mCurrentPhotoPath != null) {
+                displayGrayscaleImage();
+            }
         }
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -53,13 +63,16 @@ public class MainActivity extends ActionBarActivity {
                 try {
                     createImageFile();
                 } catch (IOException e) {
-                    Log.d(LOG_TAG, "Hello there");
                     e.printStackTrace();
                 }
                 dispatchTakePictureIntent();
                 //galleryAddPic();
             }
         });
+
+        WebView webView = (WebView) findViewById(R.id.chart_webview);
+        InputStream inputStream = getResources().openRawResource(R.raw.chart);
+        
     }
 
     @Override
@@ -83,7 +96,6 @@ public class MainActivity extends ActionBarActivity {
             // Continue only if the File was successfully created
             if (photoFile != null) {
                 Uri fileUri = Uri.fromFile(photoFile);
-                Log.d(LOG_TAG, "fileUri = " + fileUri.toString());
                 takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri);
                 startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
             }
@@ -98,10 +110,49 @@ public class MainActivity extends ActionBarActivity {
     }
 
     private void displayGrayscaleImage() {
+        Target target = new Target() {
+            @Override
+            public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+                mImageView.setImageBitmap(bitmap);
+                Drawable image = mImageView.getDrawable();
+
+                if (mImageView != null && image != null) {
+                    Log.d(LOG_TAG, "Saving new image view");
+                    Bitmap bm = ((BitmapDrawable) image).getBitmap();
+                    File file = new File(mCurrentPhotoPath);
+
+                    try {
+                        FileOutputStream out = new FileOutputStream(file);
+                        bm.compress(Bitmap.CompressFormat.JPEG, 100, out);
+                        out.close();
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            @Override
+            public void onBitmapFailed(Drawable errorDrawable) {
+
+            }
+
+            @Override
+            public void onPrepareLoad(Drawable placeHolderDrawable) {
+
+            }
+        };
+
+        Picasso.with(this).load("url").into(target);
         Picasso picasso = Picasso.with(this);
         picasso.load(new File(mCurrentPhotoPath))
                 .transform(new GrayscaleTransformation(picasso))
-                .into(mImageView);
+                .resize(300, 500)
+                .into(target);
+
+        Log.d(LOG_TAG, "mImageView == null = " + (mImageView == null));
+        Log.d(LOG_TAG, "mImageView.getDrawable() == null = " + (mImageView.getDrawable() == null));
 
         Button detailButton = (Button) findViewById(R.id.show_details_button);
         detailButton.setVisibility(View.VISIBLE);
