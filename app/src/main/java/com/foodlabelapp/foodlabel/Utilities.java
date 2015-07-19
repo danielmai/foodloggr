@@ -13,6 +13,9 @@ public class Utilities {
 
     public static Bitmap toGrayscale(Bitmap bmpOriginal)
     {
+        if (bmpOriginal == null) {
+            return null;
+        }
         int width, height;
         height = bmpOriginal.getHeight();
         width = bmpOriginal.getWidth();
