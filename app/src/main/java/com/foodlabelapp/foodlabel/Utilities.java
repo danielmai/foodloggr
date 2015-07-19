@@ -31,11 +31,7 @@ public class Utilities {
         return bmpGrayscale;
     }
 
-<<<<<<< Updated upstream
     public double poundToKilo(double weight, boolean isPound){
-=======
-    public double poundToKilo(Float weight, Boolean isPound){
->>>>>>> Stashed changes
         if(isPound)
         {
             return weight * 2.2;

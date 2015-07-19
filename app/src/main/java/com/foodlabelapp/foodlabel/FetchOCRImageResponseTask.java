@@ -2,7 +2,9 @@ package com.foodlabelapp.foodlabel;
 
 import android.content.Context;
 import android.os.AsyncTask;
+import android.widget.ArrayAdapter;
 
+import com.foodlabelapp.foodlabel.api.models.TextBlock;
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.JsonNode;
 import com.mashape.unirest.http.Unirest;
@@ -19,13 +21,19 @@ import java.io.File;
 public class FetchOCRImageResponseTask extends AsyncTask<File, Void, String> {
 
     Context mContext;
+    ArrayAdapter mArrayAdapter;
+
+    public FetchOCRImageResponseTask(Context context, ArrayAdapter<String> adapter) {
+        mContext = context;
+        mArrayAdapter = adapter;
+    }
 
     @Override
     protected String doInBackground(File... files) {
         File file = files[0];
 
-        String endpoint = mContext.getString(R.string.url);
-        String apiKey = mContext.getString(R.string.api_key);
+        String endpoint = "https://api.idolondemand.com/1/api/sync/ocrdocument/v1";
+        String apiKey = "7364a7dc-b711-4543-8186-882b5fd07faa";
         String result = null;
         try {
             HttpResponse<JsonNode> response = Unirest
@@ -45,6 +53,13 @@ public class FetchOCRImageResponseTask extends AsyncTask<File, Void, String> {
 
     @Override
     protected void onPostExecute(String s) {
+        mArrayAdapter.clear();
+        TextBlock textBlock = new TextBlock(s);
+        if (s != null) {
+            for (String data : textBlock.getTextList()) {
+                mArrayAdapter.add(data);
+            }
+        }
 
     }
 }

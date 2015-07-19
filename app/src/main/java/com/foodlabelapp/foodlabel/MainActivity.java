@@ -34,7 +34,7 @@ public class MainActivity extends ActionBarActivity {
     private ImageView mImageView;
     String mCurrentPhotoPath;
 
-    private static final String PHOTO_KEY = "photos";
+    public static final String PHOTO_KEY = "photos";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,6 +102,17 @@ public class MainActivity extends ActionBarActivity {
         picasso.load(new File(mCurrentPhotoPath))
                 .transform(new GrayscaleTransformation(picasso))
                 .into(mImageView);
+
+        Button detailButton = (Button) findViewById(R.id.show_details_button);
+        detailButton.setVisibility(View.VISIBLE);
+        detailButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getApplicationContext(), DetailActivity.class);
+                i.putExtra(PHOTO_KEY, mCurrentPhotoPath);
+                startActivity(i);
+            }
+        });
     }
 
     @Override

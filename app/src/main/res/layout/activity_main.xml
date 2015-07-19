@@ -16,6 +16,13 @@
         android:layout_height="wrap_content"
         android:text="@string/take_picture"/>
 
+    <Button
+        android:id="@+id/show_details_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="?android:buttonStyle"
+        android:visibility="invisible"/>
+
     <ImageView
         android:id="@+id/snapshot_image_view"
         android:layout_width="match_parent"
