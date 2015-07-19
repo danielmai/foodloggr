@@ -40,5 +40,6 @@
 
     <string name="feedbackbutton">Graph!</string>
     <string name="title_activity_detail">DetailActivity</string>
-    <string name="show_details_button">Nutrition detalis</string>
+    <string name="show_details_button">Nutrition details</string>
+    <string name="profile">Profile</string>
 </resources>
