@@ -2,7 +2,7 @@
 
 Don't understand nutrition labels? Let your mobile device do it for you.
 
-This uses HP's Idol On Demaind OCR API.
+This uses HP's Idol On Demand OCR API.
 
 ## Screenshots
 
